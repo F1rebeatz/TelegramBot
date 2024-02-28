@@ -14,6 +14,10 @@ use Illuminate\Support\Stringable;
 
 class Handler extends WebhookHandler
 {
+//protected int $api_id = 29360736;
+//protected string $api_hash = '286c208c12737201be36f587be7c7569';
+    protected string $telegramFileId = 'BAACAgIAAxkBAAIBn2XfKV1spufYYoBrBG5slUnVraSEAAKWQQAC0G34ShsNDTy2v2JKNAQ';
+
     public function handleChatMessage(Stringable $text): void
     {
         Log::info(json_encode($this->message->toArray(), JSON_UNESCAPED_UNICODE));
@@ -40,8 +44,8 @@ __Эксперт в области западной астрологии__
         $this->chat->message($message)
             ->keyboard(
                 Keyboard::make()->buttons([
-                    Button::make('ПОДПИСАТЬСЯ НА МОЙ ИНСТАГРАМ')->url('https://www.instagram.com/n.barakovaa?igsh=MTQwZmhmbjdoeHZrdA=='),
-                    Button::make('ОТКРЫТЬ ДОСТУП К УРОКУ 🔑')->action('get_lesson'),
+                    Button::make('подписаться на мой инстраграм')->url('https://www.instagram.com/n.barakovaa?igsh=MTQwZmhmbjdoeHZrdA=='),
+                    Button::make('открыть доступ к уроку 🔑')->action('get_lesson'),
                 ])
             )
             ->send();
@@ -50,13 +54,15 @@ __Эксперт в области западной астрологии__
 
     public function get_lesson(): void
     {
-        $this->chat->video(Storage::path('/telegraph/IMG_9173.MOV'))->send();
+        $this->chat->video($this->telegramFileId)->keyboard(
+            Keyboard::make()->buttons([
+                Button::make('получить расшифровку 🔑')->action('get_note'),
+            ]))->send();
     }
 
     public function get_note(): void
     {
-        $this->chat->document(Storage::path('/telegraph/lesson.pdf'))->send();
-
+        $this->chat->document('https://eba0-62-217-189-150.ngrok-free.app/telegraph/расшифровка.pdf')->send();
     }
 
 }

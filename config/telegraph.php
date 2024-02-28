@@ -7,7 +7,7 @@ return [
      * Telegram api base url, it can be overridden
      * for self-hosted servers
      */
-    'telegram_api_url' => 'https://api.telegram.org/',
+    'telegram_api_url' => 'http://172.22.221.213:8081/',
 
     /*
      * Sets Telegraph messages default parse mode
@@ -35,7 +35,7 @@ return [
      *
      * For reference, see https://core.telegram.org/bots/api#using-a-local-bot-api-server
      */
-    // 'custom_webhook_domain' => 'http://my.custom.domain',
+//     'custom_webhook_domain' => 'http://172.22.221.213:8081/',
 
     /*
      * If enabled, Telegraph dumps received
